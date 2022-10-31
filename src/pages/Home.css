@@ -1,0 +1,78 @@
+.Accueil {
+    z-index: 0;
+    margin-top: 100px;
+    margin-left: 118px;
+    width: calc(100% - 118px);
+    padding-left: 40px;
+    padding-right: 30px;
+}
+.flex {
+    display: flex;
+}
+.bonjour {
+    font-size: 48px;
+}
+.firstName {
+    color: #FF0101;
+}
+.congrats {
+    font-size: 18px;
+}
+.charts {
+    width: 70%;
+}
+.activityChart {
+    margin-bottom: 20px;
+}
+.bottomCharts {
+    display: flex;
+    justify-content: space-between;
+}
+.status {
+    width: 20%;
+    margin-left: 3%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.stats {
+    display: flex;
+}
+.stats img {
+    width: 60px;
+    height: 60px;
+}
+.stats p {
+    margin-left: 20px;
+    margin-top: 5px;
+}
+.stats p span {
+    font-size: 20px;
+    font-weight: bold;
+}
+.score {
+    position: relative;
+    width: 28%;
+    text-align: center;
+}
+.score p {
+    position: absolute;
+    top: calc(50% - 60px);
+    left: calc(50% - 20px);
+    font-size: 16px;
+    color: #74798C;
+}
+.score p span {
+    font-size: 26px;
+    font-weight: 700;
+    color: #282D30;
+}
+.rate {
+    font-size: 26px;
+}
+.performanceChart {
+    width: 28%;
+}
+.averageSessionChart {
+    width: 28%;
+}

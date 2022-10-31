@@ -1,0 +1,34 @@
+.hNavBar {
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-left: 30px;
+    padding-right: 30px;
+    width: 100vw;
+    height: 91px;
+    background-color: #020203;
+}
+.container {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+}
+.logo {
+    padding-left: 0;
+    padding-right: 0;
+    width: 178px;
+    height: 61px;
+    margin-top: 15px;
+}
+.hAnchor {
+    padding-left: 0;
+    padding-right: 0;
+    font-size: 24px;
+    color: white;
+    text-decoration: none;
+    margin-top: 32px;
+}
+.hAnchor:hover {
+    color: #FF0101;
+}
