@@ -59,6 +59,6 @@ export default function AverageSessionChart(userUrl) {
     };
 }
 
-ActivityChart.propTypes = {
+AverageSessionChart.propTypes = {
     url: PropTypes.string
 };

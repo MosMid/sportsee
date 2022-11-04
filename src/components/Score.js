@@ -54,6 +54,6 @@ export default function Score(userUrl) {
   };
 }
 
-ActivityChart.propTypes = {
+Score.propTypes = {
   url: PropTypes.string
 };
