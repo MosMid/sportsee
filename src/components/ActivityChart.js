@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import useFetch from '../hooks/useFetch';
 import useExist from '../hooks/useExist';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 /**

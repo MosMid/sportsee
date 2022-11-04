@@ -2,6 +2,7 @@ import useFetch from '../hooks/useFetch'
 import useExist from '../hooks/useExist'
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer, Tooltip } from 'recharts'
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 /**
  * this function recieves a url and creates the performance chart

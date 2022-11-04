@@ -2,6 +2,7 @@ import useFetch from '../hooks/useFetch'
 import useExist from '../hooks/useExist'
 import { LineChart, Line, XAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 import { useRef, useState } from 'react'
+import PropTypes from 'prop-types';
 
 /**
  * this function recieves a url and creates the average session chart
