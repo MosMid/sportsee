@@ -11,7 +11,8 @@ import PerformanceChart from '../components/PerformanceChart';
 import Score from '../components/Score'
 
 export default function App(){
-    const [data,loading]=useFetch("http://localhost:3000/user/18", null);
+    let userUrl = "http://localhost:3000/user/18";
+    const [data,loading]=useFetch(userUrl, null);
     if(loading){
         return <div>Chargement...</div>
     }
@@ -21,11 +22,11 @@ export default function App(){
             <p className='congrats'>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
             <div className='flex'>
                 <div className='charts'>
-                    <ActivityChart/>
+                    <ActivityChart url={userUrl}/>
                     <div className='bottomCharts'>
-                        <AverageSessionChart/>
-                        <PerformanceChart/>
-                        <Score/>
+                        <AverageSessionChart url={userUrl}/>
+                        <PerformanceChart url={userUrl}/>
+                        <Score url={userUrl}/>
                     </div>
                 </div>
                 <div className='status'>

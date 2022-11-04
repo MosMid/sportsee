@@ -3,12 +3,23 @@ import useExist from '../hooks/useExist'
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer, Tooltip } from 'recharts'
 import { useState } from 'react';
 
-export default function AverageSessionChart() {
+/**
+ * this function recieves a url and creates the performance chart
+ * 
+ * @param {string} userUrl user's url 
+ * @returns {JSX} performance chart
+ */
+export default function AverageSessionChart(userUrl) {
     const [elm, setelm] = useState(null);
     useExist('.performanceChart').then(resp => {setelm(resp)}); 
     let array = [];
     let obj = {};
     let max = 0;
+
+    /**
+     * this function reorganizes the array of objects to make it compatible with rechart
+     * @returns 
+     */
     function getObj(){
         if(elm){
             for (let i = 0; i < data.data.length; i++){
@@ -25,9 +36,10 @@ export default function AverageSessionChart() {
             firstElement = array.shift();
             array.push(firstElement);
             }
+            return
         }
     }
-    const [data,loading]=useFetch("http://localhost:3000/user/18/performance", []);
+    const [data,loading]=useFetch(userUrl.url+"/performance", []);
     if(loading){
         return <div>Chargement...</div>
     }
@@ -45,3 +57,7 @@ export default function AverageSessionChart() {
         </div>
     };
 }
+
+ActivityChart.propTypes = {
+    url: PropTypes.string
+};

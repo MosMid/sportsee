@@ -1,9 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import useFetch from '../hooks/useFetch'
-import useExist from '../hooks/useExist'
+import React, { useState } from 'react';
+import useFetch from '../hooks/useFetch';
+import useExist from '../hooks/useExist';
+import PropTypes from 'prop-types'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-export default function ActivityChart() {
+/**
+ * this function recieves a url and creates the activity chart
+ * 
+ * @param {Object} userUrl user's url
+ * @returns {JSX} activity chart
+ */
+export default function ActivityChart(userUrl) {
+
+    /**
+   * this function recieves an array and returns custom toolTip
+   * @param {boolean, array} param0 
+   * @returns 
+   */
     function CustomToolTip({ active, payload }) {
         if (active) {
           return (
@@ -16,6 +29,10 @@ export default function ActivityChart() {
         return null
     }
 
+    /**
+     * this function renders custom legend
+     * @returns 
+     */
     const renderLegend = () => {
         return (
           <div style={{display: 'flex', color: 'black', position: 'absolute', top: "-55px", right: "3%", color: "#20253A"}}>
@@ -26,7 +43,7 @@ export default function ActivityChart() {
           </div>
         )
     }
-    const [data,loading]=useFetch("http://localhost:3000/user/18/activity", []);
+    const [data,loading]=useFetch(userUrl.url+"/activity", []);
     const [dom, setDom] = useState(null);
     useExist('.activityChart').then(resp => {setDom(resp)});
     let array = []
@@ -36,6 +53,9 @@ export default function ActivityChart() {
     let maxCal = 0
     let calInterval = 0
     let resolution = 0
+    /**
+     * this function redefines boundries to make bars fit into chart
+     */
     function getArray(){
         if(dom){
             minWeight = data.sessions[0].kilogram
@@ -83,3 +103,7 @@ export default function ActivityChart() {
         </div>
     };
 }
+
+ActivityChart.propTypes = {
+    url: PropTypes.string
+};
