@@ -1,21 +1,27 @@
-import React, { useState } from 'react';
-import useFetch from '../hooks/useFetch';
-import useExist from '../hooks/useExist';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import useFetch from '../hooks/useFetch'
+import useExist from '../hooks/useExist'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 /**
- * this function recieves a url and creates the activity chart
- * 
- * @param {Object} userUrl user's url
- * @returns {JSX} activity chart
+ * ActivityChart is a functional component that displays a chart to show the activity data.
+ * It fetches the data from the API and also supports receiving data as props.
+ *
+ * @param {Object} props - The props passed to the component.
+ * @param {string} props.url - The API url to fetch the activity data.
+ * @param {Array} [props.data] - The activity data passed as props.
+ *
+ * @returns {ReactElement} A React component that displays the activity chart.
  */
-export default function ActivityChart(userUrl) {
-
-    /**
-   * this function recieves an array and returns custom toolTip
-   * @param {boolean, array} param0 
-   * @returns 
+export default function ActivityChart(props) {
+      /**
+   * CustomToolTip is a function that displays the custom tooltip when a data point is hovered.
+   *
+   * @param {Object} props - The props passed to the function.
+   * @param {boolean} props.active - Indicates whether the data point is being hovered or not.
+   * @param {Array} props.payload - The data payload for the data point being hovered.
+   *
+   * @returns {ReactElement} A React component that displays the custom tooltip.
    */
     function CustomToolTip({ active, payload }) {
         if (active) {
@@ -30,9 +36,10 @@ export default function ActivityChart(userUrl) {
     }
 
     /**
-     * this function renders custom legend
-     * @returns 
-     */
+   * renderLegend is a function that displays the chart legend.
+   *
+   * @returns {ReactElement} A React component that displays the chart legend.
+   */
     const renderLegend = () => {
         return (
           <div style={{display: 'flex', color: 'black', position: 'absolute', top: "-55px", right: "3%", color: "#20253A"}}>
@@ -43,7 +50,10 @@ export default function ActivityChart(userUrl) {
           </div>
         )
     }
-    const [data,loading]=useFetch(userUrl.url+"/activity", []);
+    let [data,loading]=useFetch(props.url+"/activity", []);
+    if(props.data){
+        data = props.data
+    }
     const [dom, setDom] = useState(null);
     useExist('.activityChart').then(resp => {setDom(resp)});
     let array = []
@@ -53,9 +63,13 @@ export default function ActivityChart(userUrl) {
     let maxCal = 0
     let calInterval = 0
     let resolution = 0
+
     /**
-     * this function redefines boundries to make bars fit into chart
-     */
+   * getArray is a function that retrieves and calculates the data array for the chart.
+   * It sets the `minWeight`, `maxWeight`, `maxCal`, `calInterval`, `resolution` and `array` variables.
+   *
+   * @returns {void}
+   */
     function getArray(){
         if(dom){
             minWeight = data.sessions[0].kilogram
@@ -103,7 +117,3 @@ export default function ActivityChart(userUrl) {
         </div>
     };
 }
-
-ActivityChart.propTypes = {
-    url: PropTypes.string
-};

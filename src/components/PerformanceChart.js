@@ -2,45 +2,62 @@ import useFetch from '../hooks/useFetch'
 import useExist from '../hooks/useExist'
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer, Tooltip } from 'recharts'
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 
 /**
- * this function recieves a url and creates the performance chart
- * 
- * @param {string} userUrl user's url 
- * @returns {JSX} performance chart
+ * Returns a line chart component that displays average session data.
+ * @param {object} props - Props for the component.
+ * @param {string} props.url - URL for fetching the data.
+ * @returns {React.Element} Returns a react component to render the line chart.
  */
-export default function AverageSessionChart(userUrl) {
+ export default function AverageSessionChart(props) {
     const [elm, setelm] = useState(null);
-    useExist('.performanceChart').then(resp => {setelm(resp)}); 
+  
+    /**
+     * Get the element by class name and update the state with the found element.
+     */
+    useExist(".performanceChart").then((resp) => {
+      setelm(resp);
+    });
+  
     let array = [];
     let obj = {};
     let max = 0;
-
+  
     /**
-     * this function reorganizes the array of objects to make it compatible with rechart
-     * @returns 
+     * Get the `obj` object with the data and the maximum value of the data, 
+     * and add it to the `array` of objects.
      */
-    function getObj(){
-        if(elm){
-            for (let i = 0; i < data.data.length; i++){
-                if(max < data.data[i].value){
-                    max = data.data[i].value;
-                }
-                obj = data.data[i];
-                obj.kind = data.kind[i+1];
-                obj.fullMark = max;
-                array.push(obj);
-            }
-            var firstElement = null;
-            for (let i = 0; i < 2; i++){
-            firstElement = array.shift();
-            array.push(firstElement);
-            }
-            return
+    function getObj() {
+      if (elm) {
+        for (let i = 0; i < data.data.length; i++) {
+          if (max < data.data[i].value) {
+            max = data.data[i].value;
+          }
+          obj = data.data[i];
+          obj.kind = data.kind[i + 1];
+          obj.fullMark = max;
+          array.push(obj);
         }
+  
+        /**
+         * Shift the first element to the end of the `array` 2 times.
+         */
+        var firstElement = null;
+        for (let i = 0; i < 2; i++) {
+          firstElement = array.shift();
+          array.push(firstElement);
+        }
+      }
     }
-    const [data,loading]=useFetch(userUrl.url+"/performance", []);
+  
+    /**
+     * Get the data from the given `props.url` and loading state.
+     */
+    let [data, loading] = useFetch(props.url + "/performance", []);
+    
+    if(props.data){
+        data = props.data
+    }
     if(loading){
         return <div>Chargement...</div>
     }
@@ -58,7 +75,3 @@ export default function AverageSessionChart(userUrl) {
         </div>
     };
 }
-
-AverageSessionChart.propTypes = {
-    url: PropTypes.string
-};
