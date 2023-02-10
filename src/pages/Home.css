@@ -76,3 +76,8 @@
 .averageSessionChart {
     width: 28%;
 }
+.error{
+    position: absolute;
+    left: 45%;
+    top: 45%;
+}
