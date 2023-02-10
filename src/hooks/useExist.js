@@ -1,3 +1,11 @@
+/**
+
+@function
+@name useExist
+@description a custom hook to observe the existence of an element in the DOM
+@param {string} selector - a string selector to search the element in the DOM
+@returns {Promise} a Promise that resolves to the found element when it appears in the DOM
+*/
 function useExist(selector) {
  return new Promise((resolve) => {
    let el = document.querySelector(selector);
